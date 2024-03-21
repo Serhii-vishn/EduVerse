@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduVerse.API", "EduVerse.API\EduVerse.API.csproj", "{00C2ED2A-39AF-4806-BEC2-B4E5E0100168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduVerse.UnitTests", "EduVerse.UnitTests\EduVerse.UnitTests.csproj", "{A4DE5409-E2A9-4451-8B98-7DF051064DB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00C2ED2A-39AF-4806-BEC2-B4E5E0100168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C2ED2A-39AF-4806-BEC2-B4E5E0100168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C2ED2A-39AF-4806-BEC2-B4E5E0100168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C2ED2A-39AF-4806-BEC2-B4E5E0100168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4DE5409-E2A9-4451-8B98-7DF051064DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4DE5409-E2A9-4451-8B98-7DF051064DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4DE5409-E2A9-4451-8B98-7DF051064DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4DE5409-E2A9-4451-8B98-7DF051064DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A26F1EA2-B43B-4622-B551-C3CDBE906B45}
+	EndGlobalSection
+EndGlobal
