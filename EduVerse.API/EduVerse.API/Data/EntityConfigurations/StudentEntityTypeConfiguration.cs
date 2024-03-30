@@ -1,6 +1,6 @@
 ﻿namespace EduVerse.API.Data.EntityConfigurations
 {
-    public class StudentEntityConfiguration : IEntityTypeConfiguration<StudentEntity>
+    public class StudentEntityTypeConfiguration : IEntityTypeConfiguration<StudentEntity>
     {
         public void Configure(EntityTypeBuilder<StudentEntity> builder)
         {
