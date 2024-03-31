@@ -196,6 +196,9 @@ namespace EduVerse.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.HasIndex("LastName", "FirstName", "DateOfBirth")
                         .IsUnique();
 
@@ -294,6 +297,9 @@ namespace EduVerse.API.Migrations
 
                     b.HasIndex("GroupId");
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.HasIndex("LastName", "FirstName", "DateOfBirth")
                         .IsUnique();
 
@@ -352,6 +358,9 @@ namespace EduVerse.API.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
 
                     b.HasIndex("LastName", "FirstName", "DateOfBirth")
                         .IsUnique();

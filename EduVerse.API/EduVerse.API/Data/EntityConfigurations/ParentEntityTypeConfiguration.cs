@@ -55,6 +55,9 @@
 
             builder.HasIndex(p => new { p.LastName, p.FirstName, p.DateOfBirth })
                 .IsUnique();
+
+            builder.HasIndex(t => t.PhoneNumber)
+                .IsUnique();
         }
     }
 }

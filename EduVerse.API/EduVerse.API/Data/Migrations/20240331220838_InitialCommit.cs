@@ -339,6 +339,12 @@ namespace EduVerse.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Parent_PhoneNumber",
+                table: "Parent",
+                column: "PhoneNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ParentsChildrens_ParentsId",
                 table: "ParentsChildrens",
                 column: "ParentsId");
@@ -376,9 +382,21 @@ namespace EduVerse.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Student_PhoneNumber",
+                table: "Student",
+                column: "PhoneNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teacher_LastName_FirstName_DateOfBirth",
                 table: "Teacher",
                 columns: new[] { "LastName", "FirstName", "DateOfBirth" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teacher_PhoneNumber",
+                table: "Teacher",
+                column: "PhoneNumber",
                 unique: true);
 
             migrationBuilder.CreateIndex(

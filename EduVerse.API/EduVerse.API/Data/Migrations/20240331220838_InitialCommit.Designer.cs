@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduVerse.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240331203704_InitialCommit")]
+    [Migration("20240331220838_InitialCommit")]
     partial class InitialCommit
     {
         /// <inheritdoc />
@@ -199,6 +199,9 @@ namespace EduVerse.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.HasIndex("LastName", "FirstName", "DateOfBirth")
                         .IsUnique();
 
@@ -297,6 +300,9 @@ namespace EduVerse.API.Migrations
 
                     b.HasIndex("GroupId");
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.HasIndex("LastName", "FirstName", "DateOfBirth")
                         .IsUnique();
 
@@ -355,6 +361,9 @@ namespace EduVerse.API.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
 
                     b.HasIndex("LastName", "FirstName", "DateOfBirth")
                         .IsUnique();
