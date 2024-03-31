@@ -1,6 +1,4 @@
-﻿using EduVerse.API.Data.EntityConfigurations;
-
-namespace EduVerse.API.Data
+﻿namespace EduVerse.API.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -18,6 +16,10 @@ namespace EduVerse.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new StudentEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ParentEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TeacherEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LessonEntityTypeConfiguration());
         }
     }
 }
