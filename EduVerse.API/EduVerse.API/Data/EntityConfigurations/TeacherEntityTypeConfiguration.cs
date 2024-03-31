@@ -8,7 +8,7 @@
 
             builder.HasKey(t => t.Id);
 
-            builder.Property(u => u.Id)
+            builder.Property(t => t.Id)
                 .UseIdentityColumn()
                 .IsRequired();
 

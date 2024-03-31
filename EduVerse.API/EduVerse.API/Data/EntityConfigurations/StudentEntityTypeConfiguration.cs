@@ -43,33 +43,6 @@
             builder.Property(s => s.PictureFileName)
                 .IsRequired(false)
                 .HasMaxLength(55);
-
-            builder.Property(t => t.FatherId)
-                .IsRequired(false);
-
-            builder.HasOne(s => s.Father)
-                .WithMany()
-                .HasForeignKey(s => s.FatherId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
-
-            builder.Property(t => t.MotherId)
-                .IsRequired(false);
-
-            builder.HasOne(s => s.Mother)
-                .WithMany()
-                .HasForeignKey(s => s.MotherId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
-
-            builder.Property(t => t.ChildminderId)
-                .IsRequired(false);
-
-            builder.HasOne(s => s.Childminder)
-                .WithMany()
-                .HasForeignKey(s => s.ChildminderId)
-                .OnDelete(DeleteBehavior.SetNull)
-                .IsRequired(false);
         }
     }
 }
