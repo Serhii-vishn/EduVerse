@@ -19,6 +19,9 @@
             builder.Property(l => l.Description)
                 .IsRequired(false)
                 .HasMaxLength(100);
+
+            builder.HasIndex(l => l.Name)
+                .IsUnique();
         }
     }
 }

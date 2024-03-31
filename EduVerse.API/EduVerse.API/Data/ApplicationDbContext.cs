@@ -14,6 +14,7 @@
         public DbSet<LessonEntity> Lessons { get; set; }
         public DbSet<ScheduleEntity> Schedules { get; set; }
         public DbSet<AttendanceEntity> Attendances { get; set; }
+        public DbSet<GradeEntity> Grades { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,8 @@
             modelBuilder.ApplyConfiguration(new GroupEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LessonEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ScheduleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AttendanceEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GradeEntityTypeConfiguration());
         }
     }
 }

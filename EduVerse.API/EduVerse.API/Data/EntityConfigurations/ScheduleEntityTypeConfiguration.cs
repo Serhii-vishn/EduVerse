@@ -37,9 +37,11 @@
             builder.HasOne(s => s.Group)
                 .WithMany(g => g.GroupSchedule)
                 .HasForeignKey(s => s.GroupId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasIndex(s => new { s.DayOfWeek, s.Time, s.Group });
+            builder.HasIndex(s => new { s.DayOfWeek, s.Time, s.GroupId })
+                .IsUnique();
         }
     }
 }

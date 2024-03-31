@@ -24,9 +24,6 @@
                 .IsRequired()
                 .HasColumnType("date");
 
-            builder.HasIndex(s => new { s.LastName, s.FirstName, s.DateOfBirth })
-                .IsUnique();
-
             builder.Property(s => s.Gender)
                 .IsRequired()
                 .HasMaxLength(10);
@@ -43,6 +40,9 @@
             builder.Property(s => s.PictureFileName)
                 .IsRequired(false)
                 .HasMaxLength(55);
+
+            builder.HasIndex(s => new { s.LastName, s.FirstName, s.DateOfBirth })
+                .IsUnique();
         }
     }
 }

@@ -24,9 +24,6 @@
                 .IsRequired()
                 .HasColumnType("date");
 
-            builder.HasIndex(p => new { p.LastName, p.FirstName, p.DateOfBirth })
-                .IsUnique();
-
             builder.Property(p => p.ParentalStatus)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -55,6 +52,9 @@
             builder.HasMany(p => p.Childrens)
                  .WithMany(s => s.Parents)
                  .UsingEntity(j => j.ToTable("ParentsChildrens"));
+
+            builder.HasIndex(p => new { p.LastName, p.FirstName, p.DateOfBirth })
+                .IsUnique();
         }
     }
 }

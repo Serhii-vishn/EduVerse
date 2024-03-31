@@ -16,9 +16,6 @@
                 .IsRequired()
                 .HasMaxLength(55);
 
-            builder.HasIndex(g => g.GroupName)
-                .IsUnique();
-
             builder.HasOne(g => g.Curator)
                 .WithMany(t => t.Groups)
                 .HasForeignKey(g => g.CuratorId)
@@ -31,6 +28,9 @@
             builder.HasMany(g => g.Lessons)
                 .WithMany(l => l.Groups)
                 .UsingEntity(j => j.ToTable("GroupLessons"));
+
+            builder.HasIndex(g => g.GroupName)
+                .IsUnique();
         }
     }
 }

@@ -33,7 +33,8 @@
                 .HasForeignKey(a => a.ScheduleLessonId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasKey(a => new { a.Date, a.Student, a.ScheduleLesson });
+            builder.HasIndex(a => new { a.Date, a.StudentId, a.ScheduleLessonId })
+                .IsUnique();
         }
     }
 }
