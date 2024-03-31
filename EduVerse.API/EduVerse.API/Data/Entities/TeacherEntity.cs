@@ -13,8 +13,7 @@
         public string Position { get; set; } = null!;
         public string? PictureFileName { get; set; }
 
-        public int? GroupId { get; set; }
-        public GroupEntity? Group { get; set; }
+        public IList<GroupEntity> Groups { get; set; } = new List<GroupEntity>();
 
         public IList<LessonEntity> Lessons { get; set; } = new List<LessonEntity>();
     }

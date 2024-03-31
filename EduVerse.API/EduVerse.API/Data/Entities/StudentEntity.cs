@@ -11,6 +11,9 @@
         public string Email { get; set; } = null!;
         public string? PictureFileName { get; set; }
 
+        public int GroupId { get; set; }
+        public GroupEntity Group { get; set; } = null!;
+
         public IList<ParentEntity> Parents { get; set; } = new List<ParentEntity>();
     }
 }

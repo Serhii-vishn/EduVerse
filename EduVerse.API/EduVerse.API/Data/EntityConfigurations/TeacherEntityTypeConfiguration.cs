@@ -52,14 +52,6 @@
                 .IsRequired(false)
                 .HasMaxLength(55);
 
-            builder.Property(t => t.GroupId)
-                .IsRequired(false);
-
-            builder.HasOne(t => t.Group)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
-
             builder.HasMany(t => t.Lessons)
                 .WithMany(l => l.Teachers)
                 .UsingEntity(j => j.ToTable("TeacherLessons"));
