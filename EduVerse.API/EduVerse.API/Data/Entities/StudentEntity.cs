@@ -17,5 +17,7 @@
         public IList<ParentEntity> Parents { get; set; } = new List<ParentEntity>();
 
         public IList<AttendanceEntity> Attendance { get; set; } = new List<AttendanceEntity>();
+
+        public IList<GradeEntity> Grades { get; set; } = new List<GradeEntity>();
     }
 }

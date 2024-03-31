@@ -17,5 +17,7 @@
         public GroupEntity Group { get; set; } = null!;
 
         public IList<AttendanceEntity> Attendances { get; set; } = new List<AttendanceEntity>();
+
+        public IList<GradeEntity> Grades { get; set; } = new List<GradeEntity>();
     }
 }

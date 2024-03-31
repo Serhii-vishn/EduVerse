@@ -1,9 +1,10 @@
 ﻿namespace EduVerse.API.Data.Entities
 {
-    public class AttendanceEntity
+    public class GradeEntity
     {
         public int Id { get; set; }
-        public string Status { get; set; } = null!;
+        public int Mark { get; set; }
+        public string Comcompetence { get; set; } = null!;
         public DateOnly Date { get; set; }
 
         public int StudentId { get; set; }
