@@ -9,5 +9,7 @@
         public IList<TeacherEntity> Teachers { get; set; } = new List<TeacherEntity>();
 
         public IList<GroupEntity> Groups { get; set; } = new List<GroupEntity>();
+
+        public IList<ScheduleEntity> ScheduleLessons { get; set; } = new List<ScheduleEntity>();
     }
 }

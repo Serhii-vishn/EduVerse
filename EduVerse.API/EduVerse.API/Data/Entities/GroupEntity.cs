@@ -11,5 +11,7 @@
         public IList<StudentEntity> Students { get; set; } = new List<StudentEntity>();
 
         public IList<LessonEntity> Lessons { get; set; } = new List<LessonEntity>();
+
+        public IList<ScheduleEntity> GroupSchedule { get; set; } = new List<ScheduleEntity>();
     }
 }
