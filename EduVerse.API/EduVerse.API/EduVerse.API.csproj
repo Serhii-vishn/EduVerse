@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -29,10 +29,7 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Mapping\" />
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
