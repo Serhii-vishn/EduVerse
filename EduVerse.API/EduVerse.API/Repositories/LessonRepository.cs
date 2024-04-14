@@ -1,34 +1,34 @@
 ﻿namespace EduVerse.API.Repositories
 {
-    public class AttendaceRepository : IAttendanceRepository
+    public class LessonRepository : ILessonRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public AttendaceRepository(ApplicationDbContext context)
+        public LessonRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<AttendanceEntity?> GetAsync(int id)
+        public async Task<LessonEntity?> GetAsync(int id)
         {
-           return await _context.Attendances
-                .Where(a => a.Id == id)
-                .SingleOrDefaultAsync();
+            return await _context.Lessons
+                 .Where(a => a.Id == id)
+                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IList<AttendanceEntity>> ListAsync()
+        public async Task<IList<LessonEntity>> ListAsync()
         {
-            return await _context.Attendances
+            return await _context.Lessons
                 .ToListAsync();
         }
 
-        public async Task<int> AddAsync(AttendanceEntity attendance)
+        public async Task<int> AddAsync(LessonEntity lesson)
         {
             var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
-                var result = await _context.Attendances.AddAsync(attendance);
+                var result = await _context.Lessons.AddAsync(lesson);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return result.Entity.Id;
@@ -40,16 +40,16 @@
             }
         }
 
-        public async Task<int> UpdateAsync(AttendanceEntity attendance)
+        public async Task<int> UpdateAsync(LessonEntity lesson)
         {
             var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
-                _context.Entry(attendance).State = EntityState.Modified;
+                _context.Entry(lesson).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
-                return attendance.Id;
+                return lesson.Id;
             }
             catch
             {
