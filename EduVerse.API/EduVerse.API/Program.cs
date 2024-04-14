@@ -7,6 +7,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddTransient<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddTransient<IGradeRepository, GradeRepository>();
+builder.Services.AddTransient<IGroupRepository, GroupRepository>();
+builder.Services.AddTransient<ILessonRepository, LessonRepository>();
+builder.Services.AddTransient<IParentRepository, ParentRepository>();
+builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<ITeacherRepository, TeacherRepository>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(configuration["ConnectionString"]);

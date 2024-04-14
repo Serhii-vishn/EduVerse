@@ -7,4 +7,5 @@ global using EduVerse.API.Data;
 global using EduVerse.API.Data.Entities;
 global using EduVerse.API.Data.EntityConfigurations;
 global using EduVerse.API.Models.DTO;
+global using EduVerse.API.Repositories;
 global using EduVerse.API.Repositories.Interfaces;
