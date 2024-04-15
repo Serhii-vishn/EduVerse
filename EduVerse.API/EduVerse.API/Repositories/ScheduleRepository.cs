@@ -16,9 +16,12 @@
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IList<ScheduleEntity>> ListAsync()
+        public async Task<IList<ScheduleEntity>> ListAllAsync()
         {
             return await _context.Schedules
+                .Include(t => t.Lesson)
+                .Include(t => t.Teacher)
+                .Include(t => t.Group)
                 .ToListAsync();
         }
 

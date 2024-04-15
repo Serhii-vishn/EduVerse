@@ -3,10 +3,80 @@
     public class ScheduleService : IScheduleService
     {
         private readonly IScheduleRepository _scheduleRepository;
+        private readonly IMapper _mapper;
 
-        public ScheduleService(IScheduleRepository scheduleRepository)
+        public ScheduleService(IScheduleRepository scheduleRepository, IMapper mapper)
         {
             _scheduleRepository = scheduleRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<ScheduleDTO> GetAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid schedule id");
+            }
+
+            var data = await _scheduleRepository.GetAsync(id);
+
+            if (data is null)
+            {
+                throw new NotFoundException($"Schedule with id = {id} does not exist");
+            }
+
+            return _mapper.Map<ScheduleDTO>(data);
+        }
+
+        public async Task<IList<ScheduleListDTO>> ListAsync()
+        {
+            var data = await _scheduleRepository.ListAllAsync();
+            return _mapper.Map<IList<ScheduleListDTO>>(data);
+        }
+
+        public async Task<int> UpdateAsync(ScheduleDTO schedule)
+        {
+            ValidateSchedule(schedule);
+
+            await GetAsync(schedule.Id);
+
+            return await _scheduleRepository.UpdateAsync(_mapper.Map<ScheduleEntity>(schedule));
+        }
+
+        private void ValidateSchedule(ScheduleDTO schedule)
+        {
+            if (schedule is null)
+            {
+                throw new ArgumentNullException(nameof(schedule), "Schedule is empty");
+            }
+
+            if (string.IsNullOrWhiteSpace(schedule.LessonTheme) || schedule.LessonTheme.Length > 35)
+            {
+                throw new ArgumentException("Lesson theme is required and should be maximum 35 characters long", nameof(schedule.LessonTheme));
+            }
+
+            if (string.IsNullOrWhiteSpace(schedule.DayOfWeek) || schedule.DayOfWeek.Length != 3)
+            {
+                throw new ArgumentException("Day of week is required and should be 3 characters long", nameof(schedule.DayOfWeek));
+            }
+
+            schedule.DayOfWeek = schedule.DayOfWeek.ToUpper();
+
+            switch (schedule.DayOfWeek)
+            {
+                case "MON":
+                case "TUE":
+                case "WED":
+                case "THU":
+                case "FRI":
+                case "SAT":
+                case "SUN":
+                    break;
+                default:
+                    throw new ArgumentException("Invalid day of week", nameof(schedule.DayOfWeek));
+            }
+
+            /*TODO add validation*/
         }
     }
 }
