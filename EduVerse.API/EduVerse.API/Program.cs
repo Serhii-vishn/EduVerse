@@ -17,6 +17,7 @@ builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ITeacherRepository, TeacherRepository>();
 
+builder.Services.AddTransient<ITeacherService, TeacherService>();
 builder.Services.AddTransient<IScheduleService, ScheduleService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

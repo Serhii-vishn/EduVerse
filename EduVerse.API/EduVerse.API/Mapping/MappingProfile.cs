@@ -23,9 +23,9 @@
             CreateMap<LessonEntity, LessonListDTO>();
 
             CreateMap<TeacherEntity, TeacherDTO>()
-                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.Select(s => s.Id).ToList()))
-                .ForMember(dest => dest.Lessons, opt => opt.MapFrom(src => src.Lessons.Select(s => s.Id).ToList()))
-                .ForMember(dest => dest.ScheduledClasses, opt => opt.MapFrom(src => src.ScheduledClasses.Select(s => s.Id).ToList()))
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.ToList()))
+                .ForMember(dest => dest.Lessons, opt => opt.MapFrom(src => src.Lessons.ToList()))
+                .ForMember(dest => dest.ScheduledClasses, opt => opt.MapFrom(src => src.ScheduledClasses.ToList()))
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherPictureResolver>());
 
             CreateMap<TeacherEntity, TeacherListDTO>()
