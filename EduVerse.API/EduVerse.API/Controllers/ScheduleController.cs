@@ -1,5 +1,6 @@
 ﻿namespace EduVerse.API.Controllers
 {
+    [Route("api/[controler]")]
     [ApiController]
     public class ScheduleController : ControllerBase
     {
@@ -14,12 +15,40 @@
 
         [HttpGet]
         [Route("/schedule")]
-        /*public async Task<ActionResult> GetSchedule()*/
-        public ActionResult GetSchedule()
+        public async Task<ActionResult> GetSchedule()
         {
             try
             {
-                return Ok();
+                var result = await _scheduleService.ListAsync();
+                _logger.LogInformation($"Schedule (count = {result.Count}) were received");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPut]
+        [Route("/schedule")]
+        public async Task<ActionResult> UpdateSchedule(ScheduleDTO schedule)
+        {
+            try
+            {
+                var result = await _scheduleService.UpdateAsync(schedule);
+                _logger.LogInformation($"Schedule with id = {result} was updated");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
