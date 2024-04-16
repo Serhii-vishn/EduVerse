@@ -1,0 +1,9 @@
+global using AutoMapper;
+global using EduVerse.API.Data.Entities;
+global using EduVerse.API.Models.DTO;
+global using EduVerse.API.Repositories.Interfaces;
+global using EduVerse.API.Services;
+global using EduVerse.API.Services.Interfaces;
+global using Microsoft.Data.SqlClient;
+global using Moq;
+global using FluentAssertions;
