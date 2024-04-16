@@ -5,9 +5,12 @@
         public MappingProfile()
         {
             CreateMap<GroupEntity, GroupDTO>()
-                .ForMember(dest => dest.StudentIds, opt => opt.MapFrom(src => src.Students.Select(s => s.Id)))
-                .ForMember(dest => dest.LessonIds, opt => opt.MapFrom(src => src.Lessons.Select(l => l.Id)))
-                .ForMember(dest => dest.GroupScheduleIds, opt => opt.MapFrom(src => src.GroupSchedule.Select(gs => gs.Id)));
+                .ForMember(dest => dest.StudentIds, opt => opt.MapFrom(src => src.Students.Select(s => s.Id).ToList()))
+                .ForMember(dest => dest.LessonIds, opt => opt.MapFrom(src => src.Lessons.Select(l => l.Id).ToList()))
+                .ForMember(dest => dest.GroupScheduleIds, opt => opt.MapFrom(src => src.GroupSchedule.Select(gs => gs.Id).ToList()));
+
+            CreateMap<GroupEntity, GroupListDTO>()
+                 .ForMember(dest => dest.CuratorFullName, opt => opt.MapFrom(src => $"{src.Curator.FirstName} {src.Curator.LastName}"));
 
             CreateMap<ScheduleEntity, ScheduleDTO>()
                 .ReverseMap();
@@ -16,6 +19,18 @@
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.Name))
                 .ForMember(dest => dest.TeacherFullName, opt => opt.MapFrom(src => $"{src.Teacher.FirstName} {src.Teacher.LastName}"))
                 .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Group.GroupName));
+
+            CreateMap<LessonEntity, LessonListDTO>();
+
+            CreateMap<TeacherEntity, TeacherDTO>()
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.Select(s => s.Id).ToList()))
+                .ForMember(dest => dest.Lessons, opt => opt.MapFrom(src => src.Lessons.Select(s => s.Id).ToList()))
+                .ForMember(dest => dest.ScheduledClasses, opt => opt.MapFrom(src => src.ScheduledClasses.Select(s => s.Id).ToList()))
+                .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherPictureResolver>());
+
+            CreateMap<TeacherEntity, TeacherListDTO>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherListPictureResolver>());
         }
     }
 }
