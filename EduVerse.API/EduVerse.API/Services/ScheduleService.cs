@@ -76,7 +76,10 @@
                     throw new ArgumentException("Invalid day of week", nameof(schedule.DayOfWeek));
             }
 
-            /*TODO add validation*/
+            if (schedule.Time < TimeOnly.Parse("08:00:00"))
+            {
+                throw new ArgumentException("Invalid lesson time start", nameof(schedule.Time));
+            }
         }
     }
 }
