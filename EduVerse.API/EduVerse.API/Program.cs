@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.Configure<AppConfig>(configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddTransient<IAttendanceRepository, AttendanceRepository>();
@@ -16,6 +17,7 @@ builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ITeacherRepository, TeacherRepository>();
 
+builder.Services.AddTransient<ITeacherService, TeacherService>();
 builder.Services.AddTransient<IScheduleService, ScheduleService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -46,6 +48,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.UseCors("AllowAll");
 

@@ -13,6 +13,9 @@
         {
             return await _context.Teachers
                  .Where(a => a.Id == id)
+                 .Include(g => g.Groups)
+                 .Include(l => l.Lessons)
+                 .Include(cs => cs.ScheduledClasses)
                  .SingleOrDefaultAsync();
         }
 
