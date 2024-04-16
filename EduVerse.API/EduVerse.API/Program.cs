@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.Configure<AppConfig>(configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddTransient<IAttendanceRepository, AttendanceRepository>();
@@ -46,6 +47,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.UseCors("AllowAll");
 
