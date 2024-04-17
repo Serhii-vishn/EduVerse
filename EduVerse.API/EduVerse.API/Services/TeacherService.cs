@@ -18,7 +18,7 @@
                 throw new ArgumentException("Invalid teacher id");
             }
 
-            var data = await _teacherRepository.GetAsync(id);
+            var data = await _teacherRepository.GetAllAsync(id);
 
             if (data is null)
             {
