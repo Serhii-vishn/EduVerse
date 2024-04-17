@@ -28,6 +28,11 @@
             return _mapper.Map<ScheduleDTO>(data);
         }
 
+        public Task<ScheduleLessonDTO> GetLessonByScheduleIdAsync(int scheduleId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IList<ScheduleListDTO>> ListAsync()
         {
             var data = await _scheduleRepository.ListAllAsync();
