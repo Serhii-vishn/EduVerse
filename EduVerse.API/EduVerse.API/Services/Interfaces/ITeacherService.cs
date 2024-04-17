@@ -4,6 +4,6 @@
     {
         Task<TeacherDTO> GetAsync(int id);
         Task<IList<TeacherListDTO>> ListAsync();
-        Task<int> UpdateAsync(TeacherDTO dto);
+        Task<int> UpdateAsync(TeacherDTO teacher);
     }
 }

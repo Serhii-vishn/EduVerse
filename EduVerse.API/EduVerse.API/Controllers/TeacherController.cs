@@ -65,5 +65,32 @@
                 return StatusCode(500);
             }
         }
+
+        [HttpPut]
+        [Route("/teacher")]
+        public async Task<ActionResult> UpdateTeacher(TeacherDTO teacher)
+        {
+            try
+            {
+                var result = await _teacherService.UpdateAsync(teacher);
+                _logger.LogInformation($"Teacher with id = {result} was updated");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
     }
 }

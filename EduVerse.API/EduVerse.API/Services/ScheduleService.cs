@@ -62,21 +62,12 @@
 
             schedule.DayOfWeek = schedule.DayOfWeek.ToUpper();
 
-            switch (schedule.DayOfWeek)
+            if (!Enum.TryParse(typeof(DaysOfWeek), schedule.DayOfWeek, out var day) || !Enum.IsDefined(typeof(DaysOfWeek), day))
             {
-                case "MON":
-                case "TUE":
-                case "WED":
-                case "THU":
-                case "FRI":
-                case "SAT":
-                case "SUN":
-                    break;
-                default:
-                    throw new ArgumentException("Invalid day of week", nameof(schedule.DayOfWeek));
+                throw new ArgumentException("Invalid day of week", nameof(schedule.DayOfWeek));
             }
 
-            if (schedule.Time < TimeOnly.Parse("08:00:00"))
+            if (schedule.Time < TimeOnly.Parse("08:00:00") || schedule.Time > TimeOnly.Parse("20:00:00"))
             {
                 throw new ArgumentException("Invalid lesson time start", nameof(schedule.Time));
             }

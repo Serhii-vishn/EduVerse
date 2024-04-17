@@ -1,6 +1,6 @@
 ﻿namespace EduVerse.API.Models.Enums
 {
-    public enum DayOfWeek
+    public enum DaysOfWeek
     {
         MON,
         TUE,
