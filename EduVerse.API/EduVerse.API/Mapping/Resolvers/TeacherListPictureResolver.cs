@@ -11,7 +11,7 @@
 
         public string Resolve(TeacherEntity source, TeacherListDTO destination, string destMember, ResolutionContext context)
         {
-            if (source.PictureFileName is null)
+            if (string.IsNullOrEmpty(source.PictureFileName))
             {
                 return $"{_config.ApiHost}/{_config.ImgUrl}/no-image.jpg";
             }

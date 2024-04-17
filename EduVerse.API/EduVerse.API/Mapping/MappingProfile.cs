@@ -27,7 +27,6 @@
             CreateMap<TeacherEntity, TeacherDTO>()
                 .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.ToList()))
                 .ForMember(dest => dest.Lessons, opt => opt.MapFrom(src => src.Lessons.ToList()))
-                .ForMember(dest => dest.ScheduledClasses, opt => opt.MapFrom(src => src.ScheduledClasses.ToList()))
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherPictureResolver>())
                 .ReverseMap();
 
