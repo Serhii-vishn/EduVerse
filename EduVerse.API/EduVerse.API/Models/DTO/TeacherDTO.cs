@@ -16,7 +16,5 @@
         public IList<GroupListDTO> Groups { get; set; } = new List<GroupListDTO>();
 
         public IList<LessonListDTO> Lessons { get; set; } = new List<LessonListDTO>();
-
-        public IList<ScheduleListDTO> ScheduledClasses { get; set; } = new List<ScheduleListDTO>();
     }
 }
