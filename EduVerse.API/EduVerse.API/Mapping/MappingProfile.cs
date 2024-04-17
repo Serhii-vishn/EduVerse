@@ -33,6 +33,10 @@
             CreateMap<TeacherEntity, TeacherListDTO>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherListPictureResolver>());
+
+            CreateMap<StudentEntity, StudentListDTO>()
+                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<StudentListPictureResolver>());
         }
     }
 }
