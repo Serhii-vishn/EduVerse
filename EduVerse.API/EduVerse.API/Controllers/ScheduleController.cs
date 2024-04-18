@@ -32,11 +32,11 @@
 
         [HttpGet]
         [Route("/schedule/lesson/{id}")]
-        public async Task<ActionResult> GetSchedule(int id)
+        public async Task<ActionResult> GetScheduledLesson(int id)
         {
             try
             {
-                var result = await _scheduleService.GetLessonByScheduleIdAsync(id);
+                var result = await _scheduleService.GetByLessonIdAsync(id);
                 _logger.LogInformation($"Lesson in schedule whith id ={id} were received");
                 return Ok(result);
             }
