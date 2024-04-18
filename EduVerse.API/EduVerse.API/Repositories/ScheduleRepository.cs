@@ -16,6 +16,18 @@
                 .SingleOrDefaultAsync();
         }
 
+        public async Task<ScheduleEntity?> GetAllAsync(int id)
+        {
+            return await _context.Schedules
+                .Where(s => s.Id == id)
+                .Include(g => g.Group)
+                    .ThenInclude(s => s.Students)
+                .Include(a => a.Attendances)
+                .Include(l => l.Lesson)
+                .Include(t => t.Teacher)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<IList<ScheduleEntity>> ListAllAsync()
         {
             return await _context.Schedules

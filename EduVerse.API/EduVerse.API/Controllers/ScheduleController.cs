@@ -30,6 +30,23 @@
             }
         }
 
+        [HttpGet]
+        [Route("/schedule/lesson/{id}")]
+        public async Task<ActionResult> GetScheduledLesson(int id)
+        {
+            try
+            {
+                var result = await _scheduleService.GetByLessonIdAsync(id);
+                _logger.LogInformation($"Lesson in schedule whith id ={id} were received");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
         [HttpPut]
         [Route("/schedule")]
         public async Task<ActionResult> UpdateSchedule(ScheduleDTO schedule)

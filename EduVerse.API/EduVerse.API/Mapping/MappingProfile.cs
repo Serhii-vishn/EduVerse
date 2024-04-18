@@ -21,6 +21,14 @@
                 .ForMember(dest => dest.TeacherFullName, opt => opt.MapFrom(src => $"{src.Teacher.FirstName} {src.Teacher.LastName}"))
                 .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Group.GroupName));
 
+            CreateMap<ScheduleEntity, ScheduleLessonDTO>()
+                .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.Name))
+                .ForMember(dest => dest.TeacherFullName, opt => opt.MapFrom(src => $"{src.Teacher.FirstName} {src.Teacher.LastName}"))
+                .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Group.GroupName))
+                .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Group.Students.ToList()))
+                .ForMember(dest => dest.Attendances, opt => opt.MapFrom(src => src.Attendances.ToList()))
+                .ForMember(dest => dest.Grades, opt => opt.MapFrom(src => src.Grades.ToList()));
+
             CreateMap<LessonEntity, LessonListDTO>()
                 .ReverseMap();
 
@@ -33,6 +41,16 @@
             CreateMap<TeacherEntity, TeacherListDTO>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherListPictureResolver>());
+
+            CreateMap<StudentEntity, StudentListDTO>()
+                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<StudentListPictureResolver>());
+
+            CreateMap<AttendanceEntity, AttendanceListDTO>()
+                .ReverseMap();
+
+            CreateMap<GradeEntity, GradeListDTO>()
+                .ReverseMap();
         }
     }
 }

@@ -28,6 +28,18 @@
             return _mapper.Map<ScheduleDTO>(data);
         }
 
+        public async Task<ScheduleLessonDTO> GetByLessonIdAsync(int scheduledLessonId)
+        {
+            if (scheduledLessonId <= 0)
+            {
+                throw new ArgumentException("Invalid scheduled lesson id");
+            }
+
+            var data = await _scheduleRepository.GetAllAsync(scheduledLessonId);
+
+            return _mapper.Map<ScheduleLessonDTO>(data);
+        }
+
         public async Task<IList<ScheduleListDTO>> ListAsync()
         {
             var data = await _scheduleRepository.ListAllAsync();
