@@ -10,7 +10,7 @@
         public string TeacherFullName { get; set; } = null!;
         public string GroupName { get; set; } = null!;
         public IList<StudentListDTO> Students { get; set; } = new List<StudentListDTO>();
-        public IList<AttendanceEntity> Attendances { get; set; } = new List<AttendanceEntity>();
-        public IList<GradeEntity> Grades { get; set; } = new List<GradeEntity>();
+        public IList<AttendanceListDTO> Attendances { get; set; } = new List<AttendanceListDTO>();
+        public IList<GradeListDTO> Grades { get; set; } = new List<GradeListDTO>();
     }
 }
