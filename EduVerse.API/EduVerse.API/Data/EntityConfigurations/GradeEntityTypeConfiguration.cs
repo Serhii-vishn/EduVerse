@@ -15,7 +15,7 @@
             builder.Property(g => g.Mark)
                 .IsRequired();
 
-            builder.Property(a => a.Comcompetence)
+            builder.Property(a => a.Competence)
                 .IsRequired()
                 .HasMaxLength(25);
 

@@ -67,9 +67,9 @@
 
             teacher.Gender = teacher.Gender.ToUpper();
 
-            if (string.IsNullOrEmpty(teacher.Gender) || teacher.Gender.Length > 10)
+            if (string.IsNullOrEmpty(teacher.Gender) || teacher.Gender.Length > 7)
             {
-                throw new ArgumentException("Gender is required and should be maximum 10 characters long", nameof(teacher.FirstName));
+                throw new ArgumentException("Gender is required and should be maximum 7 characters long", nameof(teacher.Gender));
             }
             else if (!Enum.TryParse(typeof(Genders), teacher.Gender, out var gender) || !Enum.IsDefined(typeof(Genders), gender))
             {
@@ -94,7 +94,7 @@
             {
                 teacher.PhoneNumber = teacher.PhoneNumber.Trim();
 
-                const string ukrainianPhoneNumberPattern = @"^\+380\d{9}$";
+                const string ukrainianPhoneNumberPattern = @"^\380\d{9}$";
 
                 if (!Regex.IsMatch(teacher.PhoneNumber, ukrainianPhoneNumberPattern))
                 {

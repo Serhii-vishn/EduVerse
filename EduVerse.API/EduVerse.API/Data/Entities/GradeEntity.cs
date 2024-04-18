@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int Mark { get; set; }
-        public string Comcompetence { get; set; } = null!;
+        public string Competence { get; set; } = null!;
         public DateOnly Date { get; set; }
 
         public int StudentId { get; set; }

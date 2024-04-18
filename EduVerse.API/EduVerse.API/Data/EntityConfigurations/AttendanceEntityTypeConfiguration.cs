@@ -14,7 +14,7 @@
 
             builder.Property(a => a.Status)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(20);
 
             builder.Property(a => a.Date)
                 .IsRequired()

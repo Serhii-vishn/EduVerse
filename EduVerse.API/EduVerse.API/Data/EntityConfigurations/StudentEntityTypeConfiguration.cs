@@ -26,11 +26,11 @@
 
             builder.Property(s => s.Gender)
                 .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(7);
 
             builder.Property(s => s.PhoneNumber)
                 .IsRequired()
-                .HasMaxLength(13)
+                .HasMaxLength(12)
                 .IsFixedLength();
 
             builder.Property(s => s.Email)

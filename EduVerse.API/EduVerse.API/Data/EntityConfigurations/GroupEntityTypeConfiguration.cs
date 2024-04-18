@@ -14,7 +14,7 @@
 
             builder.Property(g => g.GroupName)
                 .IsRequired()
-                .HasMaxLength(55);
+                .HasMaxLength(10);
 
             builder.HasOne(g => g.Curator)
                 .WithMany(t => t.Groups)
