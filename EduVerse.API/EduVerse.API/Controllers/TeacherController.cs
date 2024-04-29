@@ -41,12 +41,39 @@
 
         [HttpGet]
         [Route("/teachers")]
-        public async Task<ActionResult> GetTeachers()
+        public async Task<ActionResult> GetTeachers(string? filterOn, string? filterQuery)
         {
             try
             {
-                var result = await _teacherService.ListAsync();
+                var result = await _teacherService.ListAsync(filterOn, filterQuery);
                 _logger.LogInformation($"Teachers (count = {result.Count}) were received");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost]
+        [Route("/teacher")]
+        public async Task<IActionResult> AddTeacher(TeacherDTO teacher)
+        {
+            try
+            {
+                var result = await _teacherService.AddAsync(teacher);
+                _logger.LogInformation($"Teacher with id = {result} was added");
                 return Ok(result);
             }
             catch (NotFoundException ex)
@@ -74,6 +101,33 @@
             {
                 var result = await _teacherService.UpdateAsync(teacher);
                 _logger.LogInformation($"Teacher with id = {result} was updated");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpDelete]
+        [Route("/teacher/{id}")]
+        public async Task<ActionResult> DeleteTeacher(int id)
+        {
+            try
+            {
+                var result = await _teacherService.DeleteAsync(id);
+                _logger.LogInformation($"Teacher whith id ={id} were deleted");
                 return Ok(result);
             }
             catch (NotFoundException ex)

@@ -28,10 +28,37 @@
             return _mapper.Map<TeacherDTO>(data);
         }
 
-        public async Task<IList<TeacherListDTO>> ListAsync()
+        public async Task<IList<TeacherListDTO>> ListAsync(string? filterOn = null, string? filterQuery = null)
         {
+            if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery))
+            {
+                var filteredData = await _teacherRepository.ListFilteredAsync(filterOn, filterQuery);
+                return _mapper.Map<IList<TeacherListDTO>>(filteredData);
+            }
+
             var data = await _teacherRepository.ListAsync();
             return _mapper.Map<IList<TeacherListDTO>>(data);
+        }
+
+        public async Task<int> AddAsync(TeacherDTO teacher)
+        {
+            ValidateTeacher(teacher);
+
+            var data = await _teacherRepository.GetAsync(teacher.PhoneNumber);
+            if (data != null)
+            {
+                throw new ArgumentException($"Teacher with phone = {teacher.PhoneNumber} already exists");
+            }
+
+            data = await _teacherRepository.GetAsync(teacher.LastName, teacher.FirstName, teacher.DateOfBirth);
+            if (data != null)
+            {
+                throw new ArgumentException($"Teacher already exists");
+            }
+
+            teacher.Id = default;
+
+            return await _teacherRepository.AddAsync(_mapper.Map<TeacherEntity>(teacher));
         }
 
         public async Task<int> UpdateAsync(TeacherDTO teacher)
@@ -41,6 +68,13 @@
             await GetAsync(teacher.Id);
 
             return await _teacherRepository.UpdateAsync(_mapper.Map<TeacherEntity>(teacher));
+        }
+
+        public async Task<int> DeleteAsync(int id)
+        {
+            await GetAsync(id);
+
+            return await _teacherRepository.DeleteAsync(id);
         }
 
         private void ValidateTeacher(TeacherDTO teacher)
@@ -94,7 +128,7 @@
             {
                 teacher.PhoneNumber = teacher.PhoneNumber.Trim();
 
-                const string ukrainianPhoneNumberPattern = @"^\380\d{9}$";
+                const string ukrainianPhoneNumberPattern = @"^380\d{9}$";
 
                 if (!Regex.IsMatch(teacher.PhoneNumber, ukrainianPhoneNumberPattern))
                 {
