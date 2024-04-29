@@ -66,6 +66,33 @@
             }
         }
 
+        [HttpPost]
+        [Route("/teacher")]
+        public async Task<IActionResult> AddTeacher(TeacherDTO teacher)
+        {
+            try
+            {
+                var result = await _teacherService.AddAsync(teacher);
+                _logger.LogInformation($"Teacher with id = {result} was added");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
         [HttpPut]
         [Route("/teacher")]
         public async Task<ActionResult> UpdateTeacher(TeacherDTO teacher)
