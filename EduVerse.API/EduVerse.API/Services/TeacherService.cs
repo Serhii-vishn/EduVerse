@@ -64,6 +64,13 @@
             return await _teacherRepository.UpdateAsync(_mapper.Map<TeacherEntity>(teacher));
         }
 
+        public async Task<int> DeleteAsync(int id)
+        {
+            await GetAsync(id);
+
+            return await _teacherRepository.DeleteAsync(id);
+        }
+
         private void ValidateTeacher(TeacherDTO teacher)
         {
             if (teacher is null)

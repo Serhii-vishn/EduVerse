@@ -6,5 +6,6 @@
         Task<IList<TeacherListDTO>> ListAsync();
         Task<int> AddAsync(TeacherDTO teacher);
         Task<int> UpdateAsync(TeacherDTO teacher);
+        Task<int> DeleteAsync(int id);
     }
 }

@@ -119,5 +119,32 @@
                 return StatusCode(500);
             }
         }
+
+        [HttpDelete]
+        [Route("/teacher/{id}")]
+        public async Task<ActionResult> DeleteTeacher(int id)
+        {
+            try
+            {
+                var result = await _teacherService.DeleteAsync(id);
+                _logger.LogInformation($"Teacher whith id ={id} were deleted");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
     }
 }
