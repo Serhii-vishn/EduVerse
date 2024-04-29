@@ -28,8 +28,14 @@
             return _mapper.Map<TeacherDTO>(data);
         }
 
-        public async Task<IList<TeacherListDTO>> ListAsync()
+        public async Task<IList<TeacherListDTO>> ListAsync(string? filterOn = null, string? filterQuery = null)
         {
+            if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery))
+            {
+                var filteredData = await _teacherRepository.ListFilteredAsync(filterOn, filterQuery);
+                return _mapper.Map<IList<TeacherListDTO>>(filteredData);
+            }
+
             var data = await _teacherRepository.ListAsync();
             return _mapper.Map<IList<TeacherListDTO>>(data);
         }

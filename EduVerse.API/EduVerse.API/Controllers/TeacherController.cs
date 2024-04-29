@@ -41,11 +41,11 @@
 
         [HttpGet]
         [Route("/teachers")]
-        public async Task<ActionResult> GetTeachers()
+        public async Task<ActionResult> GetTeachers(string? filterOn, string? filterQuery)
         {
             try
             {
-                var result = await _teacherService.ListAsync();
+                var result = await _teacherService.ListAsync(filterOn, filterQuery);
                 _logger.LogInformation($"Teachers (count = {result.Count}) were received");
                 return Ok(result);
             }

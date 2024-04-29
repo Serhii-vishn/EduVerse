@@ -47,6 +47,18 @@
                 .ToListAsync();
         }
 
+        public async Task<IList<TeacherEntity>> ListFilteredAsync(string filterOn, string filterQuery)
+        {
+            var teachers = _context.Teachers.AsQueryable();
+
+            if (filterOn.Equals("Position", StringComparison.OrdinalIgnoreCase))
+            {
+                teachers = teachers.Where(t => t.Position.Contains(filterQuery));
+            }
+
+            return await teachers.ToListAsync();
+        }
+
         public async Task<int> AddAsync(TeacherEntity teacher)
         {
             var transaction = await _context.Database.BeginTransactionAsync();
