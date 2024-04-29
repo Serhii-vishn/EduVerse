@@ -34,6 +34,27 @@
             return _mapper.Map<IList<TeacherListDTO>>(data);
         }
 
+        public async Task<int> AddAsync(TeacherDTO teacher)
+        {
+            ValidateTeacher(teacher);
+
+            var data = await _teacherRepository.GetAsync(teacher.PhoneNumber);
+            if (data != null)
+            {
+                throw new ArgumentException($"Teacher with phone = {teacher.PhoneNumber} already exists");
+            }
+
+            data = await _teacherRepository.GetAsync(teacher.LastName, teacher.FirstName, teacher.DateOfBirth);
+            if (data != null)
+            {
+                throw new ArgumentException($"Teacher already exists");
+            }
+
+            teacher.Id = default;
+
+            return await _teacherRepository.AddAsync(_mapper.Map<TeacherEntity>(teacher));
+        }
+
         public async Task<int> UpdateAsync(TeacherDTO teacher)
         {
             ValidateTeacher(teacher);
@@ -94,7 +115,7 @@
             {
                 teacher.PhoneNumber = teacher.PhoneNumber.Trim();
 
-                const string ukrainianPhoneNumberPattern = @"^\380\d{9}$";
+                const string ukrainianPhoneNumberPattern = @"^380\d{9}$";
 
                 if (!Regex.IsMatch(teacher.PhoneNumber, ukrainianPhoneNumberPattern))
                 {

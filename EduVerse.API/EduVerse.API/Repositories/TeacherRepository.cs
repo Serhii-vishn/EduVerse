@@ -16,6 +16,22 @@
                  .SingleOrDefaultAsync();
         }
 
+        public async Task<TeacherEntity?> GetAsync(string phoneNumber)
+        {
+            return await _context.Teachers
+                 .Where(a => string.Equals(a.PhoneNumber, phoneNumber))
+                 .SingleOrDefaultAsync();
+        }
+
+        public async Task<TeacherEntity?> GetAsync(string lastName, string firstName, DateOnly dateOfBirth)
+        {
+            return await _context.Teachers
+                .Where(a => string.Equals(a.LastName, lastName))
+                .Where(a => string.Equals(a.FirstName, firstName))
+                .Where(a => a.DateOfBirth == dateOfBirth)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<TeacherEntity?> GetAllAsync(int id)
         {
             return await _context.Teachers

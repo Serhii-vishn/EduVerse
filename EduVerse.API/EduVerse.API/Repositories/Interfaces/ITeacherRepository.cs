@@ -3,6 +3,8 @@
     public interface ITeacherRepository
     {
         Task<TeacherEntity?> GetAsync(int id);
+        Task<TeacherEntity?> GetAsync(string phoneNumber);
+        Task<TeacherEntity?> GetAsync(string lastName, string firstName, DateOnly dateOfBirth);
         Task<TeacherEntity?> GetAllAsync(int id);
         Task<IList<TeacherEntity>> ListAsync();
         Task<int> AddAsync(TeacherEntity teacher);
