@@ -15,6 +15,15 @@
                  .SingleOrDefaultAsync();
         }
 
+        public async Task<StudentEntity?> GetAllAsync(int id)
+        {
+            return await _context.Students
+                 .Where(a => a.Id == id)
+                 .Include(s => s.Group)
+                 .Include(s => s.Parents)
+                 .SingleOrDefaultAsync();
+        }
+
         public async Task<IList<StudentEntity>> ListAsync()
         {
             return await _context.Students
