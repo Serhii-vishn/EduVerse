@@ -60,6 +60,10 @@
                 .ForMember(dest => dest.Grades, opt => opt.MapFrom(src => src.Grades.ToList()))
                 .ReverseMap();
 
+            CreateMap<ParentEntity, ParentListDTO>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<ParentListPictureResolver>());
+
             CreateMap<AttendanceEntity, AttendanceListDTO>()
                 .ReverseMap();
 
