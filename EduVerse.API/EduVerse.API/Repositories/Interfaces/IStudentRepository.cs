@@ -3,6 +3,7 @@
     public interface IStudentRepository
     {
         Task<StudentEntity?> GetAsync(int id);
+        Task<StudentEntity?> GetAsync(string lastName, string firstName, DateOnly dateOfBirth);
         Task<StudentEntity?> GetAllAsync(int id);
         Task<IList<StudentEntity>> ListAsync();
         Task<int> AddAsync(StudentEntity student);

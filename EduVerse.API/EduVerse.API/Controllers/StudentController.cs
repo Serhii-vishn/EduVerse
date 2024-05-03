@@ -120,5 +120,59 @@
                 return StatusCode(500);
             }
         }
+
+        [HttpPost]
+        [Route("/student")]
+        public async Task<IActionResult> AddStudent(StudentDTO student)
+        {
+            try
+            {
+                var result = await _studentService.AddAsync(student);
+                _logger.LogInformation($"Student whith id ={student.Id} was added");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpDelete]
+        [Route("/student/{id}")]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            try
+            {
+                var result = await _studentService.DeleteAsync(id);
+                _logger.LogInformation($"Student whith id ={id} was deleted");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
     }
 }

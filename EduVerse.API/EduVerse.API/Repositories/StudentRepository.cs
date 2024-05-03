@@ -15,6 +15,15 @@
                  .SingleOrDefaultAsync();
         }
 
+        public async Task<StudentEntity?> GetAsync(string lastName, string firstName, DateOnly dateOfBirth)
+        {
+            return await _context.Students
+                .Where(a => string.Equals(a.LastName, lastName))
+                .Where(a => string.Equals(a.FirstName, firstName))
+                .Where(a => a.DateOfBirth == dateOfBirth)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<StudentEntity?> GetAllAsync(int id)
         {
             return await _context.Students
