@@ -41,6 +41,60 @@
         }
 
         [HttpGet]
+        [Route("/student/{id}/attedance")]
+        public async Task<IActionResult> GetStudentAttedance(int id)
+        {
+            try
+            {
+                var result = await _studentService.GetAttedanseAsync(id);
+                _logger.LogInformation($"Student whith id ={id} attedance were received");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet]
+        [Route("/student/{id}/grades")]
+        public async Task<IActionResult> GetStudentGrades(int id)
+        {
+            try
+            {
+                var result = await _studentService.GetGradesAsync(id);
+                _logger.LogInformation($"Student whith id ={id} grades were received");
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet]
         [Route("/students")]
         public async Task<IActionResult> GetStudents()
         {

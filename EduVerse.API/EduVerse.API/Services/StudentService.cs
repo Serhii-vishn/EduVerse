@@ -28,6 +28,28 @@
             return _mapper.Map<StudentDTO>(data);
         }
 
+        public async Task<StudentAttedanceDTO> GetAttedanseAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid student id");
+            }
+
+            var data = await _studentRepository.GetAllAsync(id);
+            return _mapper.Map<StudentAttedanceDTO>(data);
+        }
+
+        public async Task<StudentGradesDTO> GetGradesAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid student id");
+            }
+
+            var data = await _studentRepository.GetAllAsync(id);
+            return _mapper.Map<StudentGradesDTO>(data);
+        }
+
         public async Task<IList<StudentListDTO>> ListAsync()
         {
             var studentsList = await _studentRepository.ListAsync();

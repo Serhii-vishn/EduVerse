@@ -11,7 +11,7 @@
         public async Task<StudentEntity?> GetAsync(int id)
         {
             return await _context.Students
-                 .Where(a => a.Id == id)
+                 .Where(s => s.Id == id)
                  .SingleOrDefaultAsync();
         }
 
@@ -19,8 +19,10 @@
         {
             return await _context.Students
                  .Where(a => a.Id == id)
-                 .Include(s => s.Group)
-                 .Include(s => s.Parents)
+                 .Include(g => g.Group)
+                 .Include(p => p.Parents)
+                 .Include(a => a.Attendance)
+                 .Include(g => g.Grades)
                  .SingleOrDefaultAsync();
         }
 
