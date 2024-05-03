@@ -11,8 +11,6 @@
         public string Email { get; set; } = null!;
         public string PictureFileName { get; set; } = null!;
         public int GroupId { get; set; }
-        public GroupDTO Group { get; set; } = null!;
-
-        public IList<ParentListDTO> Parents { get; set; } = new List<ParentListDTO>();
+        public string GroupName { get; set; } = null!;
     }
 }

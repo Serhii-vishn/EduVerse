@@ -44,6 +44,7 @@
 
             CreateMap<StudentEntity, StudentDTO>()
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<StudentPictureResolver>())
+                .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Group.GroupName))
                 .ReverseMap();
 
             CreateMap<StudentEntity, StudentListDTO>()
