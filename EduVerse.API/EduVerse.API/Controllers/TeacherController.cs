@@ -2,6 +2,7 @@
 {
     [Route("api/[controler]")]
     [ApiController]
+    [Authorize]
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
