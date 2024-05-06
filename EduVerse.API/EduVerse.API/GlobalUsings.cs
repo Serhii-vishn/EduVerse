@@ -1,7 +1,14 @@
-﻿global using System.Text.RegularExpressions;
+﻿global using System.Text;
+global using System.Text.RegularExpressions;
+
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.Extensions.Options;
 
 global using AutoMapper;

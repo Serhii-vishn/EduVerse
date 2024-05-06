@@ -23,9 +23,12 @@ builder.Services.AddTransient<IStudentService, StudentService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(configuration["ConnectionString"]);
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EduVerseConnectionString"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+
+builder.Services.AddDbContext<ApplicationAuthDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EduVerseAuthConnectionString")));
 
 builder.Services.AddCors(options =>
 {
@@ -37,6 +40,20 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowCredentials());
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"] ?? throw new Exception("JWT Key is not configured")))
+    });
 
 var app = builder.Build();
 
@@ -50,6 +67,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCors("AllowAll");
