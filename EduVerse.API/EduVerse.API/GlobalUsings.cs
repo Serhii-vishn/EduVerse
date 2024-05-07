@@ -1,5 +1,6 @@
 ﻿global using System.Text;
 global using System.Text.RegularExpressions;
+global using System.Security.Claims;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

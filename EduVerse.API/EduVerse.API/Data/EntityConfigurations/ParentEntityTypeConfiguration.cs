@@ -4,7 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<ParentEntity> builder)
         {
-            builder.ToTable("Parent");
+            builder.ToTable("Parents");
 
             builder.HasKey(p => p.Id);
 

@@ -4,7 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<GradeEntity> builder)
         {
-            builder.ToTable("Grade");
+            builder.ToTable("Grades");
 
             builder.HasKey(g => g.Id);
 

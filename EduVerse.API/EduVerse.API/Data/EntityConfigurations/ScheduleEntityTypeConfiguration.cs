@@ -4,7 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<ScheduleEntity> builder)
         {
-            builder.ToTable("Schedule");
+            builder.ToTable("Schedules");
 
             builder.HasKey(s => s.Id);
 
