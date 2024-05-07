@@ -8,6 +8,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppConfig>(configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddTransient<ITokenRepository, TokenRepository>();
+
 builder.Services.AddTransient<IAttendanceRepository, AttendanceRepository>();
 builder.Services.AddTransient<IGradeRepository, GradeRepository>();
 builder.Services.AddTransient<IGroupRepository, GroupRepository>();

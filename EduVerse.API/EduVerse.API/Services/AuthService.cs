@@ -3,13 +3,15 @@
     public class AuthService : IAuthService
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ITokenRepository _tokenRepository;
 
-        public AuthService(UserManager<IdentityUser> userManager)
+        public AuthService(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
         {
             _userManager = userManager;
+            _tokenRepository = tokenRepository;
         }
 
-        public async Task<bool> RegisterUserAsync(RegisterUserDTO registerUser)
+        public async Task<bool> RegisterUserAsync(RegisterUserRequest registerUser)
         {
             ValidateUser(registerUser);
 
@@ -21,17 +23,44 @@
 
             var identityResult = await _userManager.CreateAsync(identityUser, registerUser.Password);
 
-            if (identityResult.Succeeded)
+            if (!identityResult.Succeeded)
             {
-                identityResult = await _userManager.AddToRolesAsync(identityUser, registerUser.Roles);
-
-                return identityResult.Succeeded;
+                throw new ArgumentException("User registration did not take place");
             }
 
-            return false;
+            identityResult = await _userManager.AddToRolesAsync(identityUser, registerUser.Roles);
+
+            return identityResult.Succeeded;
         }
 
-        private void ValidateUser(RegisterUserDTO user)
+        public async Task<LoginUserResponse> LoginUserAsync(LoginUserRequest loginUser)
+        {
+            var user = await _userManager.FindByNameAsync(loginUser.Username);
+            if (user is null)
+            {
+                throw new ArgumentException("Username or password incorect");
+            }
+
+            var passwordCheckResult = await _userManager.CheckPasswordAsync(user, loginUser.Password);
+
+            if (!passwordCheckResult)
+            {
+                throw new ArgumentException("Username or password incorect");
+            }
+
+            var rolesList = await _userManager.GetRolesAsync(user);
+
+            if (rolesList is null)
+            {
+                throw new ArgumentException("User no roles have been assigned");
+            }
+
+            var jwtToken = await _tokenRepository.CreateJWTTokenAsync(user, rolesList.ToList());
+
+            return new LoginUserResponse() { JWTToken = jwtToken };
+        }
+
+        private void ValidateUser(RegisterUserRequest user)
         {
             if (user is null)
             {

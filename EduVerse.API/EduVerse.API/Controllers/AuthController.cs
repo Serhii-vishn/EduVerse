@@ -1,6 +1,4 @@
-﻿using EduVerse.API.Services;
-
-namespace EduVerse.API.Controllers
+﻿namespace EduVerse.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,20 +14,41 @@ namespace EduVerse.API.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
-        public async Task<ActionResult> Register(RegisterUserDTO registerUser)
+        [Route("/register")]
+        public async Task<ActionResult> Register(RegisterUserRequest registerUser)
         {
             try
             {
                 var result = await _authService.RegisterUserAsync(registerUser);
-
-                if (!result)
-                {
-                    throw new ArgumentException("User registration did not take place");
-                }
-
                 _logger.LogInformation($"User - {registerUser.Username} were registered");
-                return Ok();
+                return Ok(result);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost]
+        [Route("/login")]
+        public async Task<ActionResult> Login(LoginUserRequest loginUser)
+        {
+            try
+            {
+                var result = await _authService.LoginUserAsync(loginUser);
+                _logger.LogInformation($"User - {loginUser.Username} was logined");
+                return Ok(result);
             }
             catch (NotFoundException ex)
             {

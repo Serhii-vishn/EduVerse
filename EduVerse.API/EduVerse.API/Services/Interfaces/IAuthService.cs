@@ -2,6 +2,7 @@
 {
     public interface IAuthService
     {
-        public Task<bool> RegisterUserAsync(RegisterUserDTO registerUser);
+        Task<bool> RegisterUserAsync(RegisterUserRequest registerUser);
+        Task<LoginUserResponse> LoginUserAsync(LoginUserRequest loginUser);
     }
 }
