@@ -30,9 +30,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
-builder.Services.AddDbContext<ApplicationAuthDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EduVerseAuthConnectionString")));
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
@@ -47,7 +44,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
     .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("EduVerse")
-    .AddEntityFrameworkStores<ApplicationAuthDbContext>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>

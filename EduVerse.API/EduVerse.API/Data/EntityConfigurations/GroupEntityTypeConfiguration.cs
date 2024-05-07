@@ -4,7 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<GroupEntity> builder)
         {
-            builder.ToTable("Group");
+            builder.ToTable("Groups");
 
             builder.HasKey(g => g.Id);
 

@@ -4,7 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<LessonEntity> builder)
         {
-            builder.ToTable("Lesson");
+            builder.ToTable("Lessons");
 
             builder.HasKey(l => l.Id);
 
