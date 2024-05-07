@@ -2,7 +2,6 @@
 {
     [Route("api/[controler]")]
     [ApiController]
-    [Authorize]
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
@@ -15,6 +14,7 @@
 
         [HttpGet]
         [Route("/teacher/{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<ActionResult> GetTeacher(int id)
         {
             try
@@ -42,6 +42,7 @@
 
         [HttpGet]
         [Route("/teachers")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<ActionResult> GetTeachers(string? filterOn, string? filterQuery)
         {
             try
@@ -69,6 +70,7 @@
 
         [HttpPost]
         [Route("/teacher")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddTeacher(TeacherDTO teacher)
         {
             try
@@ -96,6 +98,7 @@
 
         [HttpPut]
         [Route("/teacher")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateTeacher(TeacherDTO teacher)
         {
             try
@@ -123,6 +126,7 @@
 
         [HttpDelete]
         [Route("/teacher/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteTeacher(int id)
         {
             try

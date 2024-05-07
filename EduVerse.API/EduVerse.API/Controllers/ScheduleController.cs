@@ -15,6 +15,7 @@
 
         [HttpGet]
         [Route("/schedule")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<ActionResult> GetSchedule()
         {
             try
@@ -32,6 +33,7 @@
 
         [HttpGet]
         [Route("/schedule/lesson/{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<ActionResult> GetScheduledLesson(int id)
         {
             try
@@ -49,6 +51,7 @@
 
         [HttpPut]
         [Route("/schedule")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateSchedule(ScheduleDTO schedule)
         {
             try

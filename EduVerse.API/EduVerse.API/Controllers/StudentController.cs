@@ -15,6 +15,7 @@
 
         [HttpGet]
         [Route("/student/{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetStudent(int id)
         {
             try
@@ -42,6 +43,7 @@
 
         [HttpGet]
         [Route("/student/{id}/attedance")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetStudentAttedance(int id)
         {
             try
@@ -69,6 +71,7 @@
 
         [HttpGet]
         [Route("/student/{id}/grades")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetStudentGrades(int id)
         {
             try
@@ -96,6 +99,7 @@
 
         [HttpGet]
         [Route("/students")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetStudents()
         {
             try
@@ -123,6 +127,7 @@
 
         [HttpPost]
         [Route("/student")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddStudent(StudentDTO student)
         {
             try
@@ -150,6 +155,7 @@
 
         [HttpDelete]
         [Route("/student/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
             try
