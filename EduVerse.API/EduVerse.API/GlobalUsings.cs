@@ -19,6 +19,8 @@ global using EduVerse.API.Data.Entities;
 global using EduVerse.API.Data.EntityConfigurations;
 global using EduVerse.API.Models.DTO;
 global using EduVerse.API.Models.Enums;
+global using EduVerse.API.Models.Requests;
+global using EduVerse.API.Models.Responses;
 global using EduVerse.API.Repositories;
 global using EduVerse.API.Repositories.Interfaces;
 global using EduVerse.API.Services;
