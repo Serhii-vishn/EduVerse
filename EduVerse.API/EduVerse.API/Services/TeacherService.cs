@@ -28,6 +28,23 @@
             return _mapper.Map<TeacherDTO>(data);
         }
 
+        public async Task<TeacherDTO> GetAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("User email is empty");
+            }
+
+            var data = await _teacherRepository.GetAllAsync(email);
+
+            if (data is null)
+            {
+                throw new NotFoundException($"Teacher with email = {email} does not exist");
+            }
+
+            return _mapper.Map<TeacherDTO>(data);
+        }
+
         public async Task<IList<TeacherListDTO>> ListAsync(string? filterOn = null, string? filterQuery = null)
         {
             if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery))

@@ -41,6 +41,15 @@
                  .SingleOrDefaultAsync();
         }
 
+        public async Task<TeacherEntity?> GetAllAsync(string email)
+        {
+            return await _context.Teachers
+                 .Where(a => a.Email == email)
+                 .Include(g => g.Groups)
+                 .Include(l => l.Lessons)
+                 .SingleOrDefaultAsync();
+        }
+
         public async Task<IList<TeacherEntity>> ListAsync()
         {
             return await _context.Teachers
