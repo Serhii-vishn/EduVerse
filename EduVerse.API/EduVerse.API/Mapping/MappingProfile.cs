@@ -42,6 +42,17 @@
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<TeacherListPictureResolver>());
 
+            CreateMap<AddTeacherRequest, TeacherEntity>()
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.ToList()))
+                .ForMember(dest => dest.Lessons, opt => opt.MapFrom(src => src.Lessons.ToList()));
+
+            CreateMap<UpdateTeacherRequest, TeacherEntity>()
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups.ToList()))
+                .ForMember(dest => dest.Lessons, opt => opt.MapFrom(src => src.Lessons.ToList()));
+
+            CreateMap<AddTeacherRequest, UpdateTeacherRequest>()
+                .ReverseMap();
+
             CreateMap<StudentEntity, StudentDTO>()
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<StudentPictureResolver>())
                 .ForMember(dest => dest.Parents, opt => opt.MapFrom(src => src.Parents.ToList()))
