@@ -11,7 +11,8 @@
                 .ReverseMap();
 
             CreateMap<GroupEntity, GroupListDTO>()
-                 .ForMember(dest => dest.CuratorFullName, opt => opt.MapFrom(src => $"{src.Curator.FirstName} {src.Curator.LastName}"));
+                 .ForMember(dest => dest.CuratorFullName, opt => opt.MapFrom(src => $"{src.Curator.FirstName} {src.Curator.LastName}"))
+                 .ReverseMap();
 
             CreateMap<ScheduleEntity, ScheduleDTO>()
                 .ReverseMap();

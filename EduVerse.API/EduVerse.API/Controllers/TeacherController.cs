@@ -133,6 +133,42 @@
             }
         }
 
+        [HttpPost]
+        [Route("/teacher/profile/add-photo")]
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> AddTeacherPhoto(IFormFile photo)
+        {
+            try
+            {
+                var user = HttpContext.User;
+                var userEmailClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+
+                if (userEmailClaim is null)
+                {
+                    throw new ArgumentException("Email claim not found in token.");
+                }
+
+                await _teacherService.AddPhotoAsync(userEmailClaim.Value, photo);
+                _logger.LogInformation($"Teacher whith email = {userEmailClaim.Value} were update photo");
+                return Ok();
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
         [HttpPut]
         [Route("/teacher")]
         [Authorize(Roles = "Admin")]
