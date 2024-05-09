@@ -1,14 +1,18 @@
-﻿namespace EduVerse.API.Services
+﻿using System;
+
+namespace EduVerse.API.Services
 {
     public class TeacherService : ITeacherService
     {
         private readonly ITeacherRepository _teacherRepository;
         private readonly IMapper _mapper;
+        private readonly IImageService _imageService;
 
-        public TeacherService(ITeacherRepository teacherRepository, IMapper mapper)
+        public TeacherService(ITeacherRepository teacherRepository, IMapper mapper, IImageService imageService)
         {
             _teacherRepository = teacherRepository;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
         public async Task<TeacherDTO> GetAsync(int id)
@@ -57,7 +61,7 @@
             return _mapper.Map<IList<TeacherListDTO>>(data);
         }
 
-        public async Task<int> AddAsync(TeacherDTO teacher)
+        public async Task<int> AddAsync(AddTeacherRequest teacher)
         {
             ValidateTeacher(teacher);
 
@@ -73,14 +77,19 @@
                 throw new ArgumentException($"Teacher already exists");
             }
 
-            teacher.Id = default;
+            if (teacher.Picture != null)
+            {
+                teacher.PictureFileName = $"{teacher.FirstName}-{teacher.LastName}" + Path.GetExtension(teacher.Picture.FileName);
+
+                await _imageService.UploadPhotoAsync(teacher.Picture, FileStorageFolders.Teachers.ToString(), teacher.PictureFileName);
+            }
 
             return await _teacherRepository.AddAsync(_mapper.Map<TeacherEntity>(teacher));
         }
 
-        public async Task<int> UpdateAsync(TeacherDTO teacher)
+        public async Task<int> UpdateAsync(UpdateTeacherRequest teacher)
         {
-            ValidateTeacher(teacher);
+            ValidateTeacher(_mapper.Map<AddTeacherRequest>(teacher));
 
             await GetAsync(teacher.Id);
 
@@ -89,12 +98,14 @@
 
         public async Task<int> DeleteAsync(int id)
         {
-            await GetAsync(id);
+            var data = await GetAsync(id);
+
+            await _imageService.DeletePhotoAsync(FileStorageFolders.Teachers.ToString(), Path.GetFileName(data.PictureFileName));
 
             return await _teacherRepository.DeleteAsync(id);
         }
 
-        private void ValidateTeacher(TeacherDTO teacher)
+        private void ValidateTeacher(AddTeacherRequest teacher)
         {
             if (teacher is null)
             {

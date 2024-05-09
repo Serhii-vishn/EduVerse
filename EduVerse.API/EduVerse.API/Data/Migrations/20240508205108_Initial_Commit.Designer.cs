@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduVerse.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240507164605_Remanimg and add Security")]
-    partial class RemanimgandaddSecurity
+    [Migration("20240508205108_Initial_Commit")]
+    partial class Initial_Commit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -430,19 +430,19 @@ namespace EduVerse.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3352893-5da2-4058-bb6a-f863dfd77e8c",
+                            Id = "52361c9f-4f21-49fc-8874-7b62730c89e7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "495be55f-7a75-4dd0-83fa-6097bcea28d3",
+                            Id = "56a7815d-373a-4af6-b47c-31c186f35892",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "378a35ae-bfa9-4713-9fd1-f16b4c4cbb4e",
+                            Id = "d1c53076-1688-4dcc-850f-f086a951a0fc",
                             Name = "Parent",
                             NormalizedName = "PARENT"
                         });

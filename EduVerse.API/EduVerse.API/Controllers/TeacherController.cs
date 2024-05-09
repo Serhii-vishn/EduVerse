@@ -6,6 +6,7 @@
     {
         private readonly ITeacherService _teacherService;
         private readonly ILogger<TeacherController> _logger;
+
         public TeacherController(ITeacherService teacherService, ILogger<TeacherController> logger)
         {
             _teacherService = teacherService;
@@ -107,7 +108,7 @@
         [HttpPost]
         [Route("/teacher")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddTeacher(TeacherDTO teacher)
+        public async Task<IActionResult> AddTeacher([FromForm] AddTeacherRequest teacher)
         {
             try
             {
@@ -135,7 +136,7 @@
         [HttpPut]
         [Route("/teacher")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UpdateTeacher(TeacherDTO teacher)
+        public async Task<ActionResult> UpdateTeacher([FromForm] UpdateTeacherRequest teacher)
         {
             try
             {
