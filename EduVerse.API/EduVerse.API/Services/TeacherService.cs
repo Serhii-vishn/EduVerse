@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EduVerse.API.Services
+﻿namespace EduVerse.API.Services
 {
     public class TeacherService : ITeacherService
     {
@@ -85,6 +83,23 @@ namespace EduVerse.API.Services
             }
 
             return await _teacherRepository.AddAsync(_mapper.Map<TeacherEntity>(teacher));
+        }
+
+        public async Task AddPhotoAsync(string email, IFormFile image)
+        {
+            if (image == null)
+            {
+                throw new ArgumentException("Image is empty");
+            }
+
+            var teacher = await GetAsync(email);
+
+            await _imageService.DeletePhotoAsync(FileStorageFolders.Teachers.ToString(), Path.GetFileName(teacher.PictureFileName));
+
+            teacher.PictureFileName = $"{teacher.FirstName}-{teacher.LastName}" + Path.GetExtension(image.FileName);
+            await _imageService.UploadPhotoAsync(image, FileStorageFolders.Teachers.ToString(), teacher.PictureFileName);
+
+            await _teacherRepository.UpdateAsync(_mapper.Map<TeacherEntity>(teacher));
         }
 
         public async Task<int> UpdateAsync(UpdateTeacherRequest teacher)
