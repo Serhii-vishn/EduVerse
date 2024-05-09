@@ -1,4 +1,6 @@
-﻿namespace EduVerse.API.Services
+﻿using System;
+
+namespace EduVerse.API.Services
 {
     public class TeacherService : ITeacherService
     {
@@ -89,19 +91,16 @@
         {
             ValidateTeacher(_mapper.Map<AddTeacherRequest>(teacher));
 
-            var data = await GetAsync(teacher.Id);
-
-            /* TODO// update photo -delete old
-            // update data dont update photo
-            // delete photo update data and delete photo
-            // update data - update photo name*/
+            await GetAsync(teacher.Id);
 
             return await _teacherRepository.UpdateAsync(_mapper.Map<TeacherEntity>(teacher));
         }
 
         public async Task<int> DeleteAsync(int id)
         {
-            await GetAsync(id);
+            var data = await GetAsync(id);
+
+            await _imageService.DeletePhotoAsync(FileStorageFolders.Teachers.ToString(), Path.GetFileName(data.PictureFileName));
 
             return await _teacherRepository.DeleteAsync(id);
         }

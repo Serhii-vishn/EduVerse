@@ -12,9 +12,6 @@
         public string Education { get; set; } = null!;
         public string Position { get; set; } = null!;
 
-        public string? PictureFileName { get; set; }
-        public IFormFile? Picture { get; set; }
-
         public IList<GroupListDTO> Groups { get; set; } = new List<GroupListDTO>();
 
         public IList<LessonListDTO> Lessons { get; set; } = new List<LessonListDTO>();
