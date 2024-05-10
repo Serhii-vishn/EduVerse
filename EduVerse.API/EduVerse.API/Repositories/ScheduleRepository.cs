@@ -22,9 +22,10 @@
                 .Where(s => s.Id == id)
                 .Include(g => g.Group)
                     .ThenInclude(s => s.Students)
-                .Include(a => a.Attendances)
                 .Include(l => l.Lesson)
                 .Include(t => t.Teacher)
+                .Include(a => a.Attendances)
+                .Include(g => g.Grades)
                 .SingleOrDefaultAsync();
         }
 
