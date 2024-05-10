@@ -82,6 +82,9 @@
 
             CreateMap<GradeEntity, GradeListDTO>()
                 .ReverseMap();
+
+            CreateMap<GradeEntity, GradeDTO>()
+                .ReverseMap();
         }
     }
 }
