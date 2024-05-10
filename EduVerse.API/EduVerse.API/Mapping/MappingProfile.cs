@@ -77,10 +77,16 @@
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.PictureFileName, opt => opt.MapFrom<ParentListPictureResolver>());
 
+            CreateMap<AttendanceEntity, AttedanceDTO>()
+                .ReverseMap();
+
             CreateMap<AttendanceEntity, AttendanceListDTO>()
                 .ReverseMap();
 
             CreateMap<GradeEntity, GradeListDTO>()
+                .ReverseMap();
+
+            CreateMap<GradeEntity, GradeDTO>()
                 .ReverseMap();
         }
     }
