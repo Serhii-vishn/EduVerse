@@ -1,11 +1,12 @@
 ﻿namespace EduVerse.API.Models.Enums
 {
-    public enum Competences
+    public enum GradeCompetences
     {
         Critical_Thinking,
         Analytical_Thinking,
         Communication,
         Problem_Solving,
-        Creativity
+        Creativity,
+        Bad_Mark
     }
 }
