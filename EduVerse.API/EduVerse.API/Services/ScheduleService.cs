@@ -4,12 +4,14 @@
     {
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IGradeRepository _gradeRepository;
+        private readonly IAttendanceRepository _attendanceRepository;
         private readonly IMapper _mapper;
 
-        public ScheduleService(IScheduleRepository scheduleRepository, IGradeRepository gradeRepository, IMapper mapper)
+        public ScheduleService(IScheduleRepository scheduleRepository, IGradeRepository gradeRepository, IAttendanceRepository attendanceRepository, IMapper mapper)
         {
             _scheduleRepository = scheduleRepository;
             _gradeRepository = gradeRepository;
+            _attendanceRepository = attendanceRepository;
             _mapper = mapper;
         }
 
@@ -62,6 +64,21 @@
             ValidateGrade(gradeDto);
 
             await _gradeRepository.AddAsync(_mapper.Map<GradeEntity>(gradeDto));
+        }
+
+        public async Task AddStudentAttedance(int lessonId, AddStudentAttendanceRequest attendanceRequest)
+        {
+            var attedanceDto = new AttedanceDTO
+            {
+                Status = attendanceRequest.Status,
+                Date = attendanceRequest.Date,
+                StudentId = attendanceRequest.StudentId,
+                ScheduleLessonId = lessonId
+            };
+
+            ValidateAttedance(attedanceDto);
+
+            await _attendanceRepository.AddAsync(_mapper.Map<AttendanceEntity>(attedanceDto));
         }
 
         public async Task<int> UpdateAsync(ScheduleDTO schedule)
@@ -122,6 +139,28 @@
             else if (!Enum.TryParse(typeof(GradeCompetences), grade.Competence, out var competence) || !Enum.IsDefined(typeof(GradeCompetences), competence))
             {
                 throw new ArgumentException("Invalid competence", nameof(grade.Competence));
+            }
+        }
+
+        private void ValidateAttedance(AttedanceDTO attedance)
+        {
+            if (attedance is null)
+            {
+                throw new ArgumentNullException(nameof(attedance), "Attedance is empty");
+            }
+
+            if (string.IsNullOrEmpty(attedance.Status))
+            {
+                throw new ArgumentException("Status is required ", nameof(attedance.Status));
+            }
+            else if (!Enum.TryParse(typeof(AttedanceStatus), attedance.Status, out var status) || !Enum.IsDefined(typeof(AttedanceStatus), status))
+            {
+                throw new ArgumentException("Invalid status", nameof(attedance.Status));
+            }
+
+            if (attedance.Date < DateOnly.Parse("2020-01-01"))
+            {
+                throw new ArgumentException("Invalid date of lesson", nameof(attedance.Date));
             }
         }
     }

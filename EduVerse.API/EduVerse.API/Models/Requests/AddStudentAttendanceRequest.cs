@@ -1,6 +1,6 @@
 ﻿namespace EduVerse.API.Models.Requests
 {
-    public class AddStudentAttendance
+    public class AddStudentAttendanceRequest
     {
         public string Status { get; set; } = null!;
         public DateOnly Date { get; set; }

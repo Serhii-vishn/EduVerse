@@ -72,12 +72,40 @@
         [HttpPost]
         [Route("/schedule/lesson/{lessonId}/student-grade")]
         [Authorize(Roles = "Teacher")]
-        public async Task<ActionResult> GetScheduledLesson([FromForm] AddStudentGradeRequest gradeRequest, int lessonId)
+        public async Task<ActionResult> AddStudentGrade([FromForm] AddStudentGradeRequest gradeRequest, int lessonId)
         {
             try
             {
                 await _scheduleService.AddStudentGrade(lessonId, gradeRequest);
                 _logger.LogInformation($"Assigned grade to a student with id - {gradeRequest.StudentId}, lessonId - {lessonId}");
+                return Ok();
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost]
+        [Route("/schedule/lesson/{lessonId}/student-attendance")]
+        [Authorize(Roles = "Teacher")]
+        public async Task<ActionResult> AddStudentAttendance([FromForm] AddStudentAttendanceRequest attendanceRequest, int lessonId)
+        {
+            try
+            {
+                await _scheduleService.AddStudentAttedance(lessonId, attendanceRequest);
+                _logger.LogInformation($"Assigned attendance to a student with id - {attendanceRequest.StudentId}, lessonId - {lessonId}");
                 return Ok();
             }
             catch (NotFoundException ex)

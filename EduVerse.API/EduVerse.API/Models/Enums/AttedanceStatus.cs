@@ -2,7 +2,6 @@
 {
     public enum AttedanceStatus
     {
-        PRESENT,
         ABSENT,
         ABSENT_VALID_REASON
     }
