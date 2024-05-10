@@ -5,6 +5,8 @@
         private readonly IScheduleService _scheduleService;
 
         private readonly Mock<IScheduleRepository> _scheduleRepository;
+        private readonly Mock<IGradeRepository> _gradeRepository;
+        private readonly Mock<IAttendanceRepository> _attendanceRepository;
         private readonly Mock<IMapper> _mapper;
 
         private readonly ScheduleEntity _scheduleFakeEntity = new()
@@ -37,9 +39,11 @@
         public ScheduleServiceTests()
         {
             _scheduleRepository = new Mock<IScheduleRepository>();
+            _gradeRepository = new Mock<IGradeRepository>();
+            _attendanceRepository = new Mock<IAttendanceRepository>();
             _mapper = new Mock<IMapper>();
 
-            _scheduleService = new ScheduleService(_scheduleRepository.Object, _mapper.Object);
+            _scheduleService = new ScheduleService(_scheduleRepository.Object, _gradeRepository.Object, _attendanceRepository.Object, _mapper.Object);
         }
 
         [Fact]
