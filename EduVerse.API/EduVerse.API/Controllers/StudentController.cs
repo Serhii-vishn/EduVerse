@@ -128,7 +128,7 @@
         [HttpPost]
         [Route("/student")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddStudent(StudentDTO student)
+        public async Task<IActionResult> AddStudent([FromForm] StudentDTO student)
         {
             try
             {

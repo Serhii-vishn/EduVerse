@@ -128,7 +128,7 @@
         [HttpPut]
         [Route("/schedule")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UpdateSchedule(ScheduleDTO schedule)
+        public async Task<ActionResult> UpdateSchedule([FromForm] ScheduleDTO schedule)
         {
             try
             {
