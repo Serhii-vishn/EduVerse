@@ -18,5 +18,8 @@
         public IList<LessonEntity> Lessons { get; set; } = new List<LessonEntity>();
 
         public IList<ScheduleEntity> ScheduledClasses { get; set; } = new List<ScheduleEntity>();
+
+        public int UserId { get; set; }
+        public UserEntity User { get; set; } = null!;
     }
 }

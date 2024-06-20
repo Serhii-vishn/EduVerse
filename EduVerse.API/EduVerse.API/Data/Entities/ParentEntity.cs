@@ -14,5 +14,8 @@
         public string? PictureFileName { get; set; }
 
         public IList<StudentEntity> Childrens { get; set; } = new List<StudentEntity>();
+
+        public int UserId { get; set; }
+        public UserEntity User { get; set; } = null!;
     }
 }

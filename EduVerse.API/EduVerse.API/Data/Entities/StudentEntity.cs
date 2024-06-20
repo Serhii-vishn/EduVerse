@@ -19,5 +19,8 @@
         public IList<AttendanceEntity> Attendance { get; set; } = new List<AttendanceEntity>();
 
         public IList<GradeEntity> Grades { get; set; } = new List<GradeEntity>();
+
+        public int UserId { get; set; }
+        public UserEntity User { get; set; } = null!;
     }
 }

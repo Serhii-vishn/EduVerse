@@ -1,6 +1,6 @@
 ﻿namespace EduVerse.API.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -16,6 +16,9 @@
         public DbSet<AttendanceEntity> Attendances { get; set; }
         public DbSet<GradeEntity> Grades { get; set; }
 
+        public DbSet<RoleEntity> UserRoles { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,27 +31,8 @@
             modelBuilder.ApplyConfiguration(new ScheduleEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AttendanceEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new GradeEntityTypeConfiguration());
-
-            var roles = new List<IdentityRole>()
-            {
-                new IdentityRole
-                {
-                    Name = "Admin",
-                    NormalizedName = "Admin".ToUpper()
-                },
-                new IdentityRole
-                {
-                    Name = "Teacher",
-                    NormalizedName = "Teacher".ToUpper()
-                },
-                new IdentityRole
-                {
-                    Name = "Parent",
-                    NormalizedName = "Parent".ToUpper()
-                },
-            };
-
-            modelBuilder.Entity<IdentityRole>().HasData(roles);
+            modelBuilder.ApplyConfiguration(new UserRolesEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         }
     }
 }
