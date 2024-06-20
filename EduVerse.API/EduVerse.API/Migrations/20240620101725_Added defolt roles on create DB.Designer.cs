@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduVerse.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240620100336_Added User-Roles claims")]
-    partial class AddedUserRolesclaims
+    [Migration("20240620101725_Added defolt roles on create DB")]
+    partial class AddeddefoltrolesoncreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -233,6 +233,23 @@ namespace EduVerse.API.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Teacher"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Parent"
+                        });
                 });
 
             modelBuilder.Entity("EduVerse.API.Data.Entities.ScheduleEntity", b =>

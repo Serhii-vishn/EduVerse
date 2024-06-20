@@ -33,6 +33,27 @@
             modelBuilder.ApplyConfiguration(new GradeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserRolesEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+
+            var roles = new List<RoleEntity>()
+            {
+                new RoleEntity
+                {
+                    Id = 1,
+                    Name = "Admin"
+                },
+                new RoleEntity
+                {
+                    Id = 2,
+                    Name = "Teacher"
+                },
+                new RoleEntity
+                {
+                    Id = 3,
+                    Name = "Parent"
+                },
+            };
+
+            modelBuilder.Entity<RoleEntity>().HasData(roles);
         }
     }
 }

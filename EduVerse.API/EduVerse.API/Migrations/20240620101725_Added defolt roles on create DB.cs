@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace EduVerse.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedUserRolesclaims : Migration
+    public partial class AddeddefoltrolesoncreateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -351,6 +353,16 @@ namespace EduVerse.API.Migrations
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Teacher" },
+                    { 3, "Parent" }
                 });
 
             migrationBuilder.CreateIndex(

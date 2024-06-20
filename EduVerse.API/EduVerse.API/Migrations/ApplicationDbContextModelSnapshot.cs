@@ -230,6 +230,23 @@ namespace EduVerse.API.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Teacher"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Parent"
+                        });
                 });
 
             modelBuilder.Entity("EduVerse.API.Data.Entities.ScheduleEntity", b =>
